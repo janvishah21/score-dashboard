@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "a97f5fc3-afee-45a6-a704-00c14ead9719",
+		"name": "score-dashboard",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAllScores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/api/scores/",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"scores",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getScore",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/api/scores/16085003",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"scores",
+						"16085003"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateScore",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"roll_no\" : \"16085005\",\n    \"name\" : \"Student Five\",\n    \"maths_score\" : 80,\n    \"physics_score\" : 93,\n    \"chemistry_score\" : 74\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/scores/",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"scores",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteScore",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/api/scores/16085002/",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"scores",
+						"16085002",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
