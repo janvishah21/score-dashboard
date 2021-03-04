@@ -6,6 +6,7 @@ This is an application where user can add scores of students and see leaderboard
 * [Django API](https://score-dashboard-api.herokuapp.com/api/scores/)
 
 An application consists of
+
 1. Home Page with 2 choices, Add Score and View Leaderboard, to navigate to respective pages.
 2. Add Score page where user can add user performance and will get confirmation of submission.
 3. Leaderboard page where students are sorted based upon percentage they have scored.
@@ -22,12 +23,13 @@ An application consists of
 
 * Usage of Material UI for better user experience.
 * Input validation on add score form
-    - Roll No. needs to be numeric string with 8 characters
+    - Roll No. needs to be numeric string with 8 characters.
     - Marks input should be between 0 and 100 inclusive.
 * Sorting based upon score of any particular subject, roll no. and name of student.
 * Searching feature where user can search student based upon his roll no. or name.
 * Client side pagination.
 * Grading system to get grade based upon percentage score.
+* Page Not Found Page for invalid url.
 
 ## Screenshots :
 
