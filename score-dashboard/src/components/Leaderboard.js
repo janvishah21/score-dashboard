@@ -22,7 +22,7 @@ const headCells = [
     { id: 'chemistry_score', label: 'Chemistry Marks' },
     { id: 'total_score', label: 'Total Marks' },
     { id: 'percentage', label: 'Percentage Score' },
-    { id: 'grade', label: 'Grade' },
+    { id: 'grade', label: 'Grade', disableSorting: true },
 ]
 
 function Leaderboard({ openPopup, setOpenPopup }) {
