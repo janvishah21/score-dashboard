@@ -123,7 +123,7 @@ function Leaderboard({ openPopup, setOpenPopup }) {
                                     </TableRow>)
                                 ) :
                                 <TableRow>
-                                        <TableCell style={{ fontWeight: 'bold', textAlign: 'center', fontStyle: 'italic' }} colSpan="7">
+                                        <TableCell style={{ fontWeight: 'bold', textAlign: 'center', fontStyle: 'italic' }} colSpan={headCells.length}>
                                             No Records Found
                                         </TableCell>
                                 </TableRow>
