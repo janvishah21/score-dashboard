@@ -8,6 +8,11 @@ import Controls from './controls/Controls';
 import SearchIcon from '@material-ui/icons/Search';
 import { fetchScores } from '../api/api';
 import { getGrade } from '../util';
+import GradeSystem from './Gradesystem';
+import Popup from './Popup';
+import InfoIcon from '@material-ui/icons/Info';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const headCells = [
     { id: 'roll_no', label: 'Roll No.' },
@@ -17,9 +22,10 @@ const headCells = [
     { id: 'chemistry_score', label: 'Chemistry Marks' },
     { id: 'total_score', label: 'Total Marks' },
     { id: 'percentage', label: 'Percentage Score' },
+    { id: 'grade', label: 'Grade' },
 ]
 
-function Leaderboard() {
+function Leaderboard({ openPopup, setOpenPopup }) {
 
     const classes = leaderboardStyles();
     const [scores, setScores] = useState([]);
@@ -41,7 +47,6 @@ function Leaderboard() {
             score.total_score = score.maths_score + score.physics_score + score.chemistry_score;
             score.percentage = Math.round(( score.total_score) / 3 * 100) / 100;
             score.grade = getGrade(score.percentage);
-            console.log(score.grade);
             return score;
         });
         return scores;
@@ -88,6 +93,12 @@ function Leaderboard() {
                         }}
                         onChange={handleSearch}
                     />
+                    <div style={{ flex: 1 }}></div>
+                    <Tooltip title='Grade System'>
+                        <IconButton onClick={() => {setOpenPopup(true)}}>
+                            <InfoIcon />
+                        </IconButton>
+                    </Tooltip>
                 </Toolbar>
                 <TblContainer>
                     <TblHead />
@@ -103,6 +114,12 @@ function Leaderboard() {
                                         <TableCell>{item.chemistry_score}</TableCell>
                                         <TableCell>{item.total_score}</TableCell>
                                         <TableCell>{item.percentage}</TableCell>
+                                        <TableCell 
+                                            style={{ 
+                                                fontWeight: 'bold',
+                                            }}>
+                                            {item.grade}
+                                        </TableCell>
                                     </TableRow>)
                                 ) :
                                 <TableRow>
@@ -115,7 +132,13 @@ function Leaderboard() {
                 </TblContainer>
                 <TblPagination />
             </Paper>
-
+            <Popup
+                title="Grade System"
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+            >
+                <GradeSystem />
+            </Popup>
         </div>
     )
 }

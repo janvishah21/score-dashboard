@@ -132,6 +132,13 @@ export const addScoreFormStyles = makeStyles(theme => ({
   },
   label: {
     fontWeight: 'bold',
+  },
+  infoIconButton: {
+    marginBottom: '10px',
+    marginLeft: '-8px'
+  },
+  infoIcon: {
+    fontSize: '16px',
   }
 }));
 
@@ -140,7 +147,18 @@ export const leaderboardStyles = makeStyles(theme => ({
     padding: theme.spacing(3)
   },
   searchInput: {
-    width: '40%'
+    width: '40%',
+  },
+}));
+
+export const popupStyles = makeStyles(theme => ({
+  dialogWrapper: {
+      padding: theme.spacing(2),
+      position: 'absolute',
+      top: theme.spacing(5)
+  },
+  dialogTitle: {
+      paddingRight: '0px'
   }
 }));
 
@@ -148,7 +166,11 @@ export const notificationStyles = makeStyles(theme => ({
   root: {
       top: theme.spacing(9),
   }
-}))
+}));
+
+export const gradeSystemStyles = makeStyles((theme) => ({
+  
+}));
 
 export const footerStyles = makeStyles(theme => ({
   root: {

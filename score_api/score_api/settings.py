@@ -32,7 +32,6 @@ CORS_ALLOWED_ORIGINS = [
     'https://scoredashboard.herokuapp.com'
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [

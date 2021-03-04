@@ -7,8 +7,14 @@ import { Grid, Paper } from '@material-ui/core';
 import { addScoreFormStyles } from '../styles';
 import { addScore } from '../api/api';
 import Notification from './Notification';
+import { getGrade } from '../util';
+import Popup from './Popup';
+import GradeSystem from './Gradesystem';
+import InfoIcon from '@material-ui/icons/Info';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
-function Addscoreform() {
+function Addscoreform({ openPopup, setOpenPopup }) {
 
     const classes = addScoreFormStyles();
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
@@ -127,6 +133,14 @@ function Addscoreform() {
                                     <br></br>
                                     <span className={classes.label}>Percentage Score : </span>
                                     <span className={classes.value}>{ Math.round((+values.maths_score + +values.physics_score + +values.chemistry_score) / 3 * 100) / 100 }</span>
+                                    <br></br>
+                                    <span className={classes.label}>Grade : </span>
+                                    <span className={classes.value}>{ getGrade(Math.round((+values.maths_score + +values.physics_score + +values.chemistry_score) / 3 * 100) / 100) }</span>
+                                    <Tooltip title='Grade System'>
+                                        <IconButton onClick={() => {setOpenPopup(true)}} className={classes.infoIconButton}>
+                                            <InfoIcon className={classes.infoIcon}/>
+                                        </IconButton>
+                                    </Tooltip>
                                 </div>
                             </Grid>
                             <Grid item xs={6}>
@@ -147,6 +161,13 @@ function Addscoreform() {
                 notify={notify}
                 setNotify={setNotify}
             />
+            <Popup
+                title="Grade System"
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+            >
+                <GradeSystem />
+            </Popup>
         </div>
     )
 }
