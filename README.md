@@ -29,16 +29,16 @@ An application consists of
 
 #### Home Page
 
-![Home Page](https://github.com/janvishah21/score-dashboard/tree/main/img/Homepage.png)
+![Home Page](img/Homepage.png)
 
 #### Add Score Form
 
-![Add Score Form](https://github.com/janvishah21/score-dashboard/tree/main/img/Addscoreform.png)
+![Add Score Form](img/Addscoreform.png)
 
 #### Leaderboard Page
 
-![Leaderboard Page](https://github.com/janvishah21/score-dashboard/tree/main/img/Leaderboard.png)
+![Leaderboard Page](img/Leaderboard.png)
 
 #### Django Rest Framework UI
 
-![Django Rest Framwork UI](https://github.com/janvishah21/score-dashboard/tree/main/img/DjangoApiUI.png)
+![Django Rest Framwork UI](img/DjangoApiUI.png)
