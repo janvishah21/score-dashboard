@@ -7,6 +7,7 @@ import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import Controls from './controls/Controls';
 import SearchIcon from '@material-ui/icons/Search';
 import { fetchScores } from '../api/api';
+import { getGrade } from '../util';
 
 const headCells = [
     { id: 'roll_no', label: 'Roll No.' },
@@ -39,6 +40,8 @@ function Leaderboard() {
         scores.map((score) => {
             score.total_score = score.maths_score + score.physics_score + score.chemistry_score;
             score.percentage = Math.round(( score.total_score) / 3 * 100) / 100;
+            score.grade = getGrade(score.percentage);
+            console.log(score.grade);
             return score;
         });
         return scores;

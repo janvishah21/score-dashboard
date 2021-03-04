@@ -27,7 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'score-dashboard-api.herokuapp.com']
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'https://scoredashboard.herokuapp.com'
+]
 
 
 # Application definition
