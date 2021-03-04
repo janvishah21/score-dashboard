@@ -54,6 +54,13 @@ export const sideMenuStyles = makeStyles((theme) => ({
   }
 }));
 
+export const pageNotFoundStyles = makeStyles((theme) => ({
+  container: {
+    paddingTop: '250px',
+    textAlign: 'center',
+  }
+}));
+
 export const pageContentStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(3),

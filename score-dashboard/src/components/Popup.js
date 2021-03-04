@@ -1,5 +1,4 @@
-
-import { Dialog, DialogTitle, DialogContent, makeStyles, Typography } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, Typography } from '@material-ui/core';
 import Controls from "./controls/Controls";
 import CloseIcon from '@material-ui/icons/Close';
 import { popupStyles } from '../styles';

@@ -6,7 +6,8 @@ import Header from '../components/Header';
 import Pagecontent from '../components/Pagecontent';
 import Footer from '../components/Footer';
 import { customTheme } from '../styles';
-import { Route } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import PageNotFound from '../components/Pagenotfound';
 
 function App() {
 
@@ -15,14 +16,21 @@ function App() {
   const [pageContentState, setPageContentState] = useState('home');
 
   return (
-    // <Route exact path='/'>
-      <ThemeProvider theme={theme}>
-        <Header pageContentState={pageContentState} setPageContentState={setPageContentState} />
-        <Pagecontent pageContentState={pageContentState} setPageContentState={setPageContentState} />
-        <Footer />
-        <CssBaseLine />
-      </ThemeProvider>
-    // </Route>
+    <Router>
+      <Switch>
+        <Route exact path='/'>
+          <ThemeProvider theme={theme}>
+            <Header pageContentState={pageContentState} setPageContentState={setPageContentState} />
+            <Pagecontent pageContentState={pageContentState} setPageContentState={setPageContentState} />
+            <Footer />
+            <CssBaseLine />
+          </ThemeProvider>
+        </Route>
+        <Route path='*'>
+          <PageNotFound />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

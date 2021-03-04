@@ -41,8 +41,8 @@ function Addscoreform({ openPopup, setOpenPopup }) {
             ...temp
         })
 
-        if (fieldValues == values)
-            return Object.values(temp).every(x => x == "")
+        if (fieldValues === values)
+            return Object.values(temp).every(x => x === "")
     }
 
     const {

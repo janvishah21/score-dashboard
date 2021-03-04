@@ -6,16 +6,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { gradeSystemStyles } from '../styles';
-
-const headCells = [
-    { id: 'percentage', label: 'Percentage' },
-    { id: 'grade', label: 'Grade' },
-]
 
 function GradeSystem() {
-
-    const classes = gradeSystemStyles();
 
     return (
         <TableContainer component={Paper}>
