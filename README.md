@@ -51,7 +51,7 @@ An application consists of
 
 #### Edit Score Form
 
-![Add Score Form](img/Editform.png)
+![Add Score Form](img/Editscoreform.png)
 
 #### Django Rest Framework UI
 
