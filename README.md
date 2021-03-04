@@ -1,0 +1,44 @@
+# Score Dashboard
+
+This is an application where user can add scores of students and see leaderboard based upon their performances. It consists of both, frontend application and backend server. Frontend is **React application** while backend is **Django Rest API** (django and django rest framework). Both, client application and backend server have been deployed on following addresses :
+
+* [React Application](https://scoredashboard.herokuapp.com)
+* [Django API](https://score-dashboard-api.herokuapp.com)
+
+An application consists of
+1. Home Page with 2 choices, Add Score and View Leaderboard, to navigate to respective pages.
+2. Add Score page where user can add user performance and will get confirmation of submission.
+3. Leaderboard page where students are sorted based upon percentage they have scored.
+
+## Particular Points :
+
+* Django Rest Api is connected MySQL database with Score table in it. Score table consists of Roll no., name of student and his/her score in Maths, Physics and Chemistry. Total marks, Percentage and Grade is not stored in database to avoid data redundancy.
+
+## Key Features :
+
+* Usage of Material UI for better user experience.
+* Input validation on add score form
+.. * Roll No. needs to be numeric string with 8 characters
+.. * Marks input should be between 0 and 100 inclusive.
+* Sorting based upon score of any particular subject, roll no. and name
+* Searching feature where user can search student based upon his roll no. or name
+* Client side pagination
+* Grading system to get grade based upon percentage score
+
+## Screenshots :
+
+#### Home Page
+
+![Home Page](https://github.com/janvishah21/score-dashboard/tree/main/img/Homepage.png)
+
+#### Add Score Form
+
+![Add Score Form](https://github.com/janvishah21/score-dashboard/tree/main/img/Addscoreform.png)
+
+#### Leaderboard Page
+
+![Leaderboard Page](https://github.com/janvishah21/score-dashboard/tree/main/img/Leaderboard.png)
+
+#### Django Rest Framework UI
+
+![Django Rest Framwork UI](https://github.com/janvishah21/score-dashboard/tree/main/img/DjangoApiUI.png)
