@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '(j&r748q9h-@jlv!swf@d+8s!er!v$#@%6%alq8sbn*-12v)nb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'score-dashboard-api.herokuapp.com']
 
