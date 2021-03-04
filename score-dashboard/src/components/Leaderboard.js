@@ -90,17 +90,23 @@ function Leaderboard() {
                     <TblHead />
                     <TableBody>
                         {
-                            recordsAfterPagingAndSorting().map(item =>
-                                (<TableRow key={item.roll_no}>
-                                    <TableCell style={{ fontWeight: 'bold' }}>{item.roll_no}</TableCell>
-                                    <TableCell>{item.name}</TableCell>
-                                    <TableCell>{item.maths_score}</TableCell>
-                                    <TableCell>{item.physics_score}</TableCell>
-                                    <TableCell>{item.chemistry_score}</TableCell>
-                                    <TableCell>{item.total_score}</TableCell>
-                                    <TableCell>{item.percentage}</TableCell>
-                                </TableRow>)
-                            )
+                            scores.length !== 0 ?
+                                recordsAfterPagingAndSorting().map(item =>
+                                    (<TableRow key={item.roll_no}>
+                                        <TableCell style={{ fontWeight: 'bold' }}>{item.roll_no}</TableCell>
+                                        <TableCell>{item.name}</TableCell>
+                                        <TableCell>{item.maths_score}</TableCell>
+                                        <TableCell>{item.physics_score}</TableCell>
+                                        <TableCell>{item.chemistry_score}</TableCell>
+                                        <TableCell>{item.total_score}</TableCell>
+                                        <TableCell>{item.percentage}</TableCell>
+                                    </TableRow>)
+                                ) :
+                                <TableRow>
+                                        <TableCell style={{ fontWeight: 'bold', textAlign: 'center', fontStyle: 'italic' }} colSpan="7">
+                                            No Records Found
+                                        </TableCell>
+                                </TableRow>
                         }
                     </TableBody>
                 </TblContainer>

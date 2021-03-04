@@ -157,11 +157,12 @@ export const footerStyles = makeStyles(theme => ({
     bottom: '0',
     left: '0',
     width: '100%',
+    textAlign: 'center'
+  },
+  footerText: {
+    textAlign: 'right',
   },
   gitlogo: {
-
-  },
-  label: {
-    flexGrow: 1,
+    color: 'white',
   }
 }));
