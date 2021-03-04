@@ -6,7 +6,7 @@ import Pageheader from './Pageheader';
 import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import Controls from './controls/Controls';
 import SearchIcon from '@material-ui/icons/Search';
-import { fetchScores } from '../api/api';
+import { fetchScores, deleteScore } from '../api/api';
 import { getGrade } from '../util';
 import GradeSystem from './Gradesystem';
 import Popup from './Popup';
@@ -15,6 +15,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Notification from './Notification';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import Addscoreform from './Addscoreform';
+import { editScore } from '../api/api';
 
 const headCells = [
     { id: 'roll_no', label: 'Roll No.' },
@@ -25,6 +29,7 @@ const headCells = [
     { id: 'total_score', label: 'Total Marks' },
     { id: 'percentage', label: 'Percentage Score' },
     { id: 'grade', label: 'Grade', disableSorting: true },
+    { id: 'action', label: '', disableSorting: true }
 ]
 
 function Leaderboard({ openPopup, setOpenPopup }) {
@@ -34,9 +39,14 @@ function Leaderboard({ openPopup, setOpenPopup }) {
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } });
     const [isLoading, setIsLoading] = useState(false);
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
+    const [openFormPopup, setOpenFormPopup] = useState(false);
+    const [scoreToEdit, setScoreToEdit] = useState(null);
 
     useEffect( async () => {
+        getScores();
+    }, []);
 
+    const getScores = async () => {
         try {
             setIsLoading(true);
             const scores = await fetchScores();
@@ -50,8 +60,7 @@ function Leaderboard({ openPopup, setOpenPopup }) {
                 type: 'error'
             });
         }
-    
-    }, []);
+    }
 
     const responseUpdate = (scores) => {
         scores.map((score) => {
@@ -80,6 +89,59 @@ function Leaderboard({ openPopup, setOpenPopup }) {
                     return items.filter(x => (x.name.toLowerCase().includes(target.value.toLowerCase()) || x.roll_no.includes(target.value.toLowerCase())));
             }
         })
+    }
+
+    const openFormInPopup = (score) => {
+
+        setScoreToEdit(score);
+        setOpenFormPopup(true);
+
+    }
+
+    const editRecord = async (values, resetForm, setIsLoading) => {
+        try {
+            setIsLoading(true);
+            const res = await editScore(values);
+            setIsLoading(false);
+            setNotify({
+                isOpen: true,
+                message: 'Submitted Successfully !',
+                type: 'success'
+            });
+            resetForm();
+            setScoreToEdit(null);
+            setOpenFormPopup(false);
+            getScores();
+        } catch(error) {
+            setIsLoading(false);
+            setNotify({
+                isOpen: true,
+                message: 'Internal Server Error !',
+                type: 'error'
+            });
+        }
+    }
+
+    const deleteRecord = async (roll_no) => {
+        
+        try {
+            const res = await deleteScore(roll_no);
+            if(!res.ok)
+                throw new Error('Operation Unsuccessful !');
+            setNotify({
+                isOpen: true,
+                message: 'Deleted Successfully !',
+                type: 'success'
+            });
+            getScores();
+        } catch(error) {
+            setNotify({
+                isOpen: true,
+                message: 'Internal Server Error !',
+                type: 'error'
+            });
+        }
+
     }
 
     return (
@@ -118,10 +180,10 @@ function Leaderboard({ openPopup, setOpenPopup }) {
                         isLoading ?
                         <TableRow>
                             <TableCell colSpan="8" style={{textAlign: 'center'}}>
-                                <CircularProgress size={60} />
+                                <CircularProgress size={60} color='secondary' />
                             </TableCell>
                         </TableRow> : 
-                            scores.length !== 0 ?
+                            recordsAfterPagingAndSorting().length !== 0 ?
                                 recordsAfterPagingAndSorting().map(item =>
                                     (<TableRow key={item.roll_no}>
                                         <TableCell style={{ fontWeight: 'bold' }}>{item.roll_no}</TableCell>
@@ -136,6 +198,18 @@ function Leaderboard({ openPopup, setOpenPopup }) {
                                                 fontWeight: 'bold',
                                             }}>
                                             {item.grade}
+                                        </TableCell>
+                                        <TableCell>
+                                            <Tooltip title="Edit Score">
+                                                <IconButton onClick={() => {openFormInPopup(item)}}>
+                                                    <EditIcon color='primary' />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title="Delete Record">
+                                                <IconButton onClick={() => {deleteRecord(item.roll_no)}}>
+                                                    <DeleteIcon color='secondary'/>
+                                                </IconButton>
+                                            </Tooltip>
                                         </TableCell>
                                     </TableRow>)
                                 ) :
@@ -159,6 +233,16 @@ function Leaderboard({ openPopup, setOpenPopup }) {
                 setOpenPopup={setOpenPopup}
             >
                 <GradeSystem />
+            </Popup>
+            <Popup
+                openPopup={openFormPopup}
+                setOpenPopup={setOpenFormPopup}
+            >
+                <Addscoreform 
+                    editScore={editRecord}
+                    isEditing={true}
+                    scoreForm={scoreToEdit}
+                 />
             </Popup>
         </div>
     )

@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Pageheader from './Pageheader';
 import AddIcon from '@material-ui/icons/Add';
 import { Formutil, Form } from '../components/Formutil';
 import Controls from '../components/controls/Controls';
 import { Grid, Paper } from '@material-ui/core';
 import { addScoreFormStyles } from '../styles';
-import { addScore } from '../api/api';
 import Notification from './Notification';
 import { getGrade } from '../util';
 import Popup from './Popup';
@@ -14,13 +13,15 @@ import InfoIcon from '@material-ui/icons/Info';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { addScore } from '../api/api';
+import EditIcon from '@material-ui/icons/Edit';
 
-function Addscoreform({ openPopup, setOpenPopup }) {
+function Addscoreform({ openPopup, setOpenPopup, isEditing, editScore, scoreForm }) {
 
     const classes = addScoreFormStyles();
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
     const [isLoading, setIsLoading] = useState(false);
-    
+
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
         if ('roll_no' in fieldValues) {
@@ -56,10 +57,19 @@ function Addscoreform({ openPopup, setOpenPopup }) {
         resetForm
     } = Formutil(initialValues, true, validate);
 
-    const submitScore = async () => {
+    useEffect(() => {
+        if(isEditing && scoreForm)
+            setValues({
+                ...scoreForm
+            });
+    }, [scoreForm]);
+
+    const addRecord = async () => {
         try {
             setIsLoading(true);
             const res = await addScore(values);
+            if(!res.name)
+                throw 'Record Already Exists !';
             setIsLoading(false);
             setNotify({
                 isOpen: true,
@@ -71,7 +81,7 @@ function Addscoreform({ openPopup, setOpenPopup }) {
             setIsLoading(false);
             setNotify({
                 isOpen: true,
-                message: 'Internal Server Error !',
+                message: error.toString().includes('Exists') ? 'Record (Roll no.) Already Exists !' : 'Internal Server Error !',
                 type: 'error'
             });
         }
@@ -80,15 +90,18 @@ function Addscoreform({ openPopup, setOpenPopup }) {
     const handleSubmit = e => {
         e.preventDefault()
         if (validate()){
-            submitScore();
+            if(editScore)
+                editScore(values, resetForm, setIsLoading);
+            else
+                addRecord();
         }
     }
 
     return (
         <div className={classes.root}>
             <Pageheader 
-                title="Add Score"
-                icon={<AddIcon fontSize='large' />} />
+                title={ isEditing ? 'Edit Score' : 'Add Score'}
+                icon={isEditing ? <EditIcon fontSize='large' /> : <AddIcon fontSize='large' />} />
     
             <Paper className={classes.formBody}>
                 <Form onSubmit={handleSubmit}>
@@ -97,6 +110,7 @@ function Addscoreform({ openPopup, setOpenPopup }) {
                             <Controls.Input
                                 label="Roll No."
                                 name="roll_no"
+                                disabled={isEditing}
                                 value={values.roll_no}
                                 onChange={handleInputChange}
                                 error={errors.roll_no}
@@ -104,6 +118,7 @@ function Addscoreform({ openPopup, setOpenPopup }) {
                             <Controls.Input
                                 label="Name"
                                 name="name"
+                                disabled={isEditing}
                                 value={values.name}
                                 onChange={handleInputChange}
                                 error={errors.name}
@@ -163,13 +178,16 @@ function Addscoreform({ openPopup, setOpenPopup }) {
                                     type="submit"
                                     text="Submit" />
                                 &nbsp;&nbsp;&nbsp;
-                                <Controls.Button
-                                    text="Reset"
-                                    color="default"
-                                    onClick={resetForm} />
+                                {
+                                    !isEditing &&
+                                    <Controls.Button
+                                        text="Reset"
+                                        color="default"
+                                        onClick={resetForm} />
+                                }
                                 <br></br>
                                 <br></br>
-                                { isLoading && <CircularProgress size={40} /> }
+                                { isLoading && <CircularProgress size={40} color='secondary' /> }
                             </Grid>
                         </Grid>
                     </Grid>
@@ -196,6 +214,10 @@ const initialValues = {
     maths_score: 0,
     physics_score: 0,
     chemistry_score: 0
+}
+
+Addscoreform.defaultProps = {
+    isEditing: false,
 }
 
 export default Addscoreform

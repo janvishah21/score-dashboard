@@ -1,6 +1,6 @@
 # Score Dashboard
 
-This is an application where user can add scores of students and see leaderboard based upon their performances. It consists of both, frontend application and backend server. Frontend is **React Application** while backend is **Django Rest API** (Django and Django Rest Framework). Both, client application and backend server have been deployed on following addresses :
+This is an application where user can **add, edit, delete** scores of students and see leaderboard based upon their performances. It consists of both, frontend application and backend server. Frontend is **React Application** while backend is **Django Rest API** (Django and Django Rest Framework). Both, client application and backend server have been deployed on following addresses :
 
 * [React Application](https://scoredashboard.herokuapp.com)
 * [Django API](https://score-dashboard-api.herokuapp.com/api/scores/)
@@ -14,7 +14,7 @@ An application consists of
 
 ## Particular Points :
 
-* Django Rest Api is connected to MySQL database with Score table in it. Score table consists of Roll no., name of student and his/her score in Maths, Physics and Chemistry. Total marks, Percentage and Grade is not stored in database to avoid data redundancy.
+* Django api is connected to MySQL database with Score table in it. Score table consists of Roll no., name of student and his/her score in Maths, Physics and Chemistry. Total marks, Percentage and Grade is not stored in database to avoid data redundancy.
 * Django api is allowed to only to accept requests from above react application (allowed origins for CORS policy)
 * Both frontend and backend applications have been deployed on heroku. Frontend application has been configured to handle development and production environments to call respective rest endpoints in that environment.
 * Api responses have been handled properly so as to display notifications on success or failure.
@@ -22,12 +22,14 @@ An application consists of
 ## Key Features :
 
 * Usage of Material UI for better user experience.
+* All 4 CRUD functionalities.
 * Input validation on add score form
     - Roll No. needs to be numeric string with 8 characters.
     - Marks input should be numeric and between 0 and 100 inclusive.
 * Sorting based upon score of any particular subject, roll no. and name of student.
 * Searching feature where user can search student based upon his/her roll no. or name.
-* Success or failure notification based upon api response.
+* Success or failure notifications based upon api response.
+* Edit score form in separate dialog box.
 * Client side pagination.
 * Grading system to get grade based upon percentage score.
 * Page Not Found Page for invalid url.
@@ -46,6 +48,10 @@ An application consists of
 #### Leaderboard Page
 
 ![Leaderboard Page](img/Leaderboard.png)
+
+#### Edit Score Form
+
+![Add Score Form](img/Editform.png)
 
 #### Django Rest Framework UI
 
