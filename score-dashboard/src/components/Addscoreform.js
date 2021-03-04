@@ -13,12 +13,14 @@ import GradeSystem from './Gradesystem';
 import InfoIcon from '@material-ui/icons/Info';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function Addscoreform({ openPopup, setOpenPopup }) {
 
     const classes = addScoreFormStyles();
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
-
+    const [isLoading, setIsLoading] = useState(false);
+    
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
         if ('roll_no' in fieldValues) {
@@ -54,18 +56,31 @@ function Addscoreform({ openPopup, setOpenPopup }) {
         resetForm
     } = Formutil(initialValues, true, validate);
 
-    const handleSubmit = e => {
-        e.preventDefault()
-        if (validate()){
-            console.log(values);
-            const res = addScore(values);
-            console.log(res);
+    const submitScore = async () => {
+        try {
+            setIsLoading(true);
+            const res = await addScore(values);
+            setIsLoading(false);
             setNotify({
                 isOpen: true,
                 message: 'Submitted Successfully !',
                 type: 'success'
             });
             resetForm();
+        } catch(error) {
+            setIsLoading(false);
+            setNotify({
+                isOpen: true,
+                message: 'Internal Server Error !',
+                type: 'error'
+            });
+        }
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        if (validate()){
+            submitScore();
         }
     }
 
@@ -74,7 +89,7 @@ function Addscoreform({ openPopup, setOpenPopup }) {
             <Pageheader 
                 title="Add Score"
                 icon={<AddIcon fontSize='large' />} />
-
+    
             <Paper className={classes.formBody}>
                 <Form onSubmit={handleSubmit}>
                     <Grid container style={{ textAlign: 'center' }}>
@@ -152,6 +167,9 @@ function Addscoreform({ openPopup, setOpenPopup }) {
                                     text="Reset"
                                     color="default"
                                     onClick={resetForm} />
+                                <br></br>
+                                <br></br>
+                                { isLoading && <CircularProgress size={40} /> }
                             </Grid>
                         </Grid>
                     </Grid>

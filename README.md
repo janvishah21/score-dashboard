@@ -17,7 +17,7 @@ An application consists of
 * Django Rest Api is connected MySQL database with Score table in it. Score table consists of Roll no., name of student and his/her score in Maths, Physics and Chemistry. Total marks, Percentage and Grade is not stored in database to avoid data redundancy.
 * Django api is allowed to only to accept requests from above react application (allowed origins for CORS policy)
 * Both frontend and backend applications have been deployed on heroku. Frontend application has been configured to handle development and production environments to call respective rest endpoints in that environment.
-* Getting response from api make take some time, so it is requested to wait for response to arrive (I was short of time to add spinner)
+* Api responses have been handled properly so as to display notifications on success or failure both.
 
 ## Key Features :
 
@@ -30,6 +30,7 @@ An application consists of
 * Client side pagination.
 * Grading system to get grade based upon percentage score.
 * Page Not Found Page for invalid url.
+* Progress spinner.
 
 ## Screenshots :
 

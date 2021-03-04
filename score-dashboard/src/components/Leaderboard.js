@@ -13,6 +13,8 @@ import Popup from './Popup';
 import InfoIcon from '@material-ui/icons/Info';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Notification from './Notification';
 
 const headCells = [
     { id: 'roll_no', label: 'Roll No.' },
@@ -30,15 +32,24 @@ function Leaderboard({ openPopup, setOpenPopup }) {
     const classes = leaderboardStyles();
     const [scores, setScores] = useState([]);
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } });
+    const [isLoading, setIsLoading] = useState(false);
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
-    useEffect(() => {
+    useEffect( async () => {
 
-        const getScores = async () => {
-          const scores = await fetchScores();
-          setScores(responseUpdate(scores));
+        try {
+            setIsLoading(true);
+            const scores = await fetchScores();
+            setScores(responseUpdate(scores));
+            setIsLoading(false);
+        } catch(error) {
+            setIsLoading(false);
+            setNotify({
+                isOpen: true,
+                message: 'Internal Server Error !',
+                type: 'error'
+            });
         }
-    
-        getScores();
     
     }, []);
 
@@ -103,7 +114,13 @@ function Leaderboard({ openPopup, setOpenPopup }) {
                 <TblContainer>
                     <TblHead />
                     <TableBody>
-                        {
+                    {
+                        isLoading ?
+                        <TableRow>
+                            <TableCell colSpan="8" style={{textAlign: 'center'}}>
+                                <CircularProgress size={60} />
+                            </TableCell>
+                        </TableRow> : 
                             scores.length !== 0 ?
                                 recordsAfterPagingAndSorting().map(item =>
                                     (<TableRow key={item.roll_no}>
@@ -127,11 +144,15 @@ function Leaderboard({ openPopup, setOpenPopup }) {
                                             No Records Found
                                         </TableCell>
                                 </TableRow>
-                        }
+                    }
                     </TableBody>
                 </TblContainer>
                 <TblPagination />
             </Paper>
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
             <Popup
                 title="Grade System"
                 openPopup={openPopup}
