@@ -27,6 +27,7 @@ An application consists of
     - Marks input should be between 0 and 100 inclusive.
 * Sorting based upon score of any particular subject, roll no. and name of student.
 * Searching feature where user can search student based upon his roll no. or name.
+* Success or failure notification based upon api response.
 * Client side pagination.
 * Grading system to get grade based upon percentage score.
 * Page Not Found Page for invalid url.
