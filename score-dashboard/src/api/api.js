@@ -23,7 +23,7 @@ export const addScore = async (score) => {
         'Content-type': 'application/json',
       },
       body: JSON.stringify(score),
-    })
+    });
 
     const data = await res.json()
 

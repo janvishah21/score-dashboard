@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Pageheader from './Pageheader';
 import AddIcon from '@material-ui/icons/Add';
 import { Formutil, Form } from '../components/Formutil';
@@ -5,23 +6,31 @@ import Controls from '../components/controls/Controls';
 import { Grid, Paper } from '@material-ui/core';
 import { addScoreFormStyles } from '../styles';
 import { addScore } from '../api/api';
+import Notification from './Notification';
 
 function Addscoreform() {
 
     const classes = addScoreFormStyles();
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
-        if ('roll_no' in fieldValues)
+        if ('roll_no' in fieldValues) {
             temp.roll_no = fieldValues.roll_no ? "" : "This field is required.";
+            temp.roll_no = (/^[0-9]/).test(fieldValues.roll_no) ? "" : "Roll no. should be numeric string with 8 characters.";
+            temp.roll_no = fieldValues.roll_no.length === 8 ? "" : "Roll no. should be numeric string with 8 characters.";
+        }
         if ('name' in fieldValues)
-            temp.name = fieldValues.name ? "" : "This field is required."
-        if ('maths_score' in fieldValues)
-            temp.maths_score = (fieldValues.maths_score >= 0 || fieldValues.maths_score <= 100) ? "" : "Marks should lie between 0 and 100"
-        if ('physics_score' in fieldValues)
-            temp.physics_score = (fieldValues.physics_score >= 0 || fieldValues.physics_score <= 100) ? "" : "Marks should lie between 0 and 100"
-        if ('chemistry_score' in fieldValues)
-            temp.chemistry_score = (fieldValues.chemistry_score >= 0 || fieldValues.chemistry_score <= 100) ? "" : "Marks should lie between 0 and 100"
+            temp.name = fieldValues.name ? "" : "This field is required.";
+        if ('maths_score' in fieldValues) {
+            temp.maths_score = (fieldValues.maths_score >= 0 && fieldValues.maths_score <= 100) ? "" : "Marks should lie between 0 and 100";
+        }
+        if ('physics_score' in fieldValues) {
+            temp.physics_score = (fieldValues.physics_score >= 0 && fieldValues.physics_score <= 100) ? "" : "Marks should lie between 0 and 100";
+        }
+        if ('chemistry_score' in fieldValues) {
+            temp.chemistry_score = (fieldValues.chemistry_score >= 0 && fieldValues.chemistry_score <= 100) ? "" : "Marks should lie between 0 and 100";
+        }
         setErrors({
             ...temp
         })
@@ -43,7 +52,13 @@ function Addscoreform() {
         e.preventDefault()
         if (validate()){
             console.log(values);
-            addScore(values);
+            const res = addScore(values);
+            console.log(res);
+            setNotify({
+                isOpen: true,
+                message: 'Submitted Successfully !',
+                type: 'success'
+            });
             resetForm();
         }
     }
@@ -51,8 +66,7 @@ function Addscoreform() {
     return (
         <div className={classes.root}>
             <Pageheader 
-                title="Add Score" 
-                subTitle="Insert new record"
+                title="Add Score"
                 icon={<AddIcon fontSize='large' />} />
 
             <Paper className={classes.formBody}>
@@ -129,6 +143,10 @@ function Addscoreform() {
                     </Grid>
                 </Form>
             </Paper>
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
         </div>
     )
 }

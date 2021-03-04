@@ -12,7 +12,7 @@ const headCells = [
     { id: 'roll_no', label: 'Roll No.' },
     { id: 'name', label: 'Name' },
     { id: 'maths_score', label: 'Maths Marks' },
-    { id: 'physics_score', label: 'Physicis Marks' },
+    { id: 'physics_score', label: 'Physics Marks' },
     { id: 'chemistry_score', label: 'Chemistry Marks' },
     { id: 'total_score', label: 'Total Marks' },
     { id: 'percentage', label: 'Percentage Score' },

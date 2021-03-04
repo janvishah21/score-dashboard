@@ -61,6 +61,17 @@ export const pageContentStyles = makeStyles((theme) => ({
   }
 }));
 
+export const homePageStyles = makeStyles(theme => ({
+  root: {
+    textAlign: 'center',
+    margin: '50px',
+    marginTop: theme.spacing(20)
+  },
+  title: {
+    fontSize: '48px'
+  }
+}));
+
 export const pageHeaderStyles = makeStyles(theme => ({
   root: {
     backgroundColor: '#fdfdff'
@@ -130,6 +141,12 @@ export const leaderboardStyles = makeStyles(theme => ({
   },
   searchInput: {
     width: '40%'
+  }
+}));
+
+export const notificationStyles = makeStyles(theme => ({
+  root: {
+      top: theme.spacing(9),
   }
 }))
 

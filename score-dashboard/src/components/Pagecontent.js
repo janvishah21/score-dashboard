@@ -3,15 +3,19 @@ import Homepage from './Homepage';
 import Leaderboard from './Leaderboard';
 import Addscoreform from './Addscoreform';
 
-function Pagecontent() {
+function Pagecontent({ pageContentState, setPageContentState }) {
 
     const classes = pageContentStyles();
 
     return (
         <div className={classes.root}>
-            <Homepage />
-            <Leaderboard />
-            {/* <Addscoreform /> */}
+            { pageContentState === 'home' ? 
+                <Homepage pageContentState={pageContentState} setPageContentState={setPageContentState} />
+                :
+                    pageContentState === 'add' ?
+                        <Addscoreform />
+                    :   <Leaderboard />
+            }
         </div>
     )
 }

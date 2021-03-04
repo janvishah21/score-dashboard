@@ -2,11 +2,12 @@ import { headerStyles } from '../styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
+import HomeIcon from '@material-ui/icons/Home';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import Controls from './controls/Controls';
 
-function Header() {
+function Header({ pageContentState, setPageContentState }) {
 
     const classes = headerStyles();
 
@@ -14,15 +15,29 @@ function Header() {
         <div className={classes.root}>
             <AppBar position="static" color="primary">
                 <Toolbar>
-                    <Typography variant="h5" className={classes.title}>
+                    <Typography variant="h5" className={classes.title}  onClick={() => {setPageContentState('home');}}>
                         Scoreboard
                     </Typography>
-                    <IconButton aria-label="Add Score" color="inherit">
-                        <AddCircleIcon />
-                    </IconButton>
-                    <IconButton aria-label="View Leaderboard" color="inherit">
-                        <AssessmentIcon />
-                    </IconButton>
+                    {   
+                        pageContentState === 'lead' ?
+                            <Controls.Button
+                                variant="text"
+                                size="large"
+                                color="secondary"
+                                endIcon={<AddCircleIcon />}
+                                text="ADD SCORE"
+                                onClick={() => {setPageContentState('add');}}>
+                            </Controls.Button> :
+                                pageContentState === 'add' ?
+                                    <Controls.Button
+                                        variant="text"
+                                        size="large"
+                                        color="secondary"
+                                        endIcon={<AssessmentIcon />}
+                                        text="VIEW LEADERBOARD"
+                                        onClick={() => {setPageContentState('lead');}}>
+                                    </Controls.Button> : ''
+                    }
                 </Toolbar>
             </AppBar>
         </div>
