@@ -20,7 +20,7 @@ function Footer() {
                         <Grid item xs={4}></Grid>
                         <Grid item xs={4}>
                             <Link href={gitRepo} target='_blank'>
-                                <GitHubIcon className={classes.gitlogo}/>
+                                <GitHubIcon className={classes.gitlogo} fontSize='large'/>
                             </Link>
                         </Grid>
                         <Grid item xs={4}>
