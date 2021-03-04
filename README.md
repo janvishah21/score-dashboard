@@ -8,25 +8,25 @@ This is an application where user can add scores of students and see leaderboard
 An application consists of
 
 1. Home Page with 2 choices, Add Score and View Leaderboard, to navigate to respective pages.
-2. Add Score page where user can add user performance and will get confirmation of submission.
+2. Add Score page where user can add user performance and will get confirmation/failure notification on submission.
 3. Leaderboard page where students are sorted based upon percentage they have scored.
 
 
 ## Particular Points :
 
-* Django Rest Api is connected MySQL database with Score table in it. Score table consists of Roll no., name of student and his/her score in Maths, Physics and Chemistry. Total marks, Percentage and Grade is not stored in database to avoid data redundancy.
+* Django Rest Api is connected to MySQL database with Score table in it. Score table consists of Roll no., name of student and his/her score in Maths, Physics and Chemistry. Total marks, Percentage and Grade is not stored in database to avoid data redundancy.
 * Django api is allowed to only to accept requests from above react application (allowed origins for CORS policy)
 * Both frontend and backend applications have been deployed on heroku. Frontend application has been configured to handle development and production environments to call respective rest endpoints in that environment.
-* Api responses have been handled properly so as to display notifications on success or failure both.
+* Api responses have been handled properly so as to display notifications on success or failure.
 
 ## Key Features :
 
 * Usage of Material UI for better user experience.
 * Input validation on add score form
     - Roll No. needs to be numeric string with 8 characters.
-    - Marks input should be between 0 and 100 inclusive.
+    - Marks input should be numeric and between 0 and 100 inclusive.
 * Sorting based upon score of any particular subject, roll no. and name of student.
-* Searching feature where user can search student based upon his roll no. or name.
+* Searching feature where user can search student based upon his/her roll no. or name.
 * Success or failure notification based upon api response.
 * Client side pagination.
 * Grading system to get grade based upon percentage score.
