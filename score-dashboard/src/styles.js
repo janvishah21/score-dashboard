@@ -5,11 +5,11 @@ export const customTheme = createMuiTheme({
   palette: {
     primary: {
       main: "#333996",
-      light: '#3c44b1'
+      light: '#3c44b126'
     },
     secondary: {
       main: "#f83245",
-      light: '#f83245'
+      light: '#f8324526'
     },
     background: {
       default: "#f4f5fd"
@@ -87,12 +87,12 @@ export const pageHeaderStyles = makeStyles(theme => ({
     padding: theme.spacing(4),
     display:'flex',
     marginBottom:theme.spacing(2),
-    borderBottom: `1px solid ${ theme.palette.secondary.light }`
+    borderBottom: '1px solid #f83245'
   },
   pageIcon:{
     display: 'inline-block',
     padding: theme.spacing(2),
-    color: theme.palette.secondary.main,
+    color: '#f83245',
     borderRadius: '10px',
   },
   pageTitle:{
@@ -117,8 +117,8 @@ export const tableStyles = makeStyles(theme => ({
       marginTop: theme.spacing(3),
       '& thead th': {
           fontWeight: '600',
-          color: theme.palette.primary.main,
-          backgroundColor: theme.palette.primary.light,
+          color: '#333996',
+          backgroundColor: '#3c44b126',
       },
       '& tbody td': {
           fontWeight: '300',
