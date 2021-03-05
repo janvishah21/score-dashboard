@@ -23,7 +23,7 @@ An application consists of
 ## Key Features :
 
 * Usage of Material UI for better user experience.
-* All 4 CRUD functionalities.
+* **All 4 CRUD functionalities**.
 * Input validation on add score form
     - Roll No. needs to be numeric string with 8 characters.
     - Marks input should be numeric and between 0 and 100 inclusive.
