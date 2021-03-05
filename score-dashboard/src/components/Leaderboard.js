@@ -148,7 +148,7 @@ function Leaderboard({ openPopup, setOpenPopup }) {
         <div>
             <Pageheader 
                 title="Leaderboard"
-                icon={<AssessmentOutlinedIcon fontSize="large" />} />
+                icon={<AssessmentOutlinedIcon fontSize="large" color="secondary" />} />
 
             <Paper className={classes.pageContent}>
                 <Toolbar>
