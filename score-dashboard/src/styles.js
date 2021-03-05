@@ -139,13 +139,6 @@ export const addScoreFormStyles = makeStyles(theme => ({
   },
   label: {
     fontWeight: 'bold',
-  },
-  infoIconButton: {
-    marginBottom: '10px',
-    marginLeft: '-8px'
-  },
-  infoIcon: {
-    fontSize: '16px',
   }
 }));
 

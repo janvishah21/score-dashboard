@@ -101,7 +101,7 @@ function Addscoreform({ openPopup, setOpenPopup, isEditing, editScore, scoreForm
         <div className={classes.root}>
             <Pageheader 
                 title={ isEditing ? 'Edit Score' : 'Add Score'}
-                icon={isEditing ? <EditIcon fontSize='large' /> : <AddIcon fontSize='large' />} />
+                icon={isEditing ? <EditIcon fontSize='large' color='secondary' /> : <AddIcon fontSize='large' color='secondary' />} />
     
             <Paper className={classes.formBody}>
                 <Form onSubmit={handleSubmit}>
@@ -167,8 +167,8 @@ function Addscoreform({ openPopup, setOpenPopup, isEditing, editScore, scoreForm
                                     <span className={classes.label}>Grade : </span>
                                     <span className={classes.value}>{ getGrade(Math.round((+values.maths_score + +values.physics_score + +values.chemistry_score) / 3 * 100) / 100) }</span>
                                     <Tooltip title='Grade System'>
-                                        <IconButton onClick={() => {setOpenPopup(true)}} className={classes.infoIconButton}>
-                                            <InfoIcon className={classes.infoIcon}/>
+                                        <IconButton onClick={() => {setOpenPopup(true)}} style={{marginBottom: '10px', marginLeft: '-8px'}}>
+                                            <InfoIcon fontSize='small'/>
                                         </IconButton>
                                     </Tooltip>
                                 </div>
