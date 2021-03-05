@@ -18,6 +18,7 @@ An application consists of
 * Django api is allowed to only to accept requests from above react application (allowed origins for CORS policy)
 * Both frontend and backend applications have been deployed on heroku. Frontend application has been configured to handle development and production environments to call respective rest endpoints in that environment.
 * Api responses have been handled properly so as to display notifications on success or failure.
+* Clicking on title logo takes you back to home page.
 
 ## Key Features :
 
