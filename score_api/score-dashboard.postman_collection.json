@@ -30,14 +30,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseurl}}/api/scores/16085003",
+					"raw": "{{baseurl}}/api/scores/16085001/",
 					"host": [
 						"{{baseurl}}"
 					],
 					"path": [
 						"api",
 						"scores",
-						"16085003"
+						"16085001",
+						""
 					]
 				}
 			},
@@ -46,11 +47,40 @@
 		{
 			"name": "updateScore",
 			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"roll_no\" : \"16085001\",\n    \"name\" : \"First Student\",\n    \"maths_score\" : 99,\n    \"physics_score\" : 93,\n    \"chemistry_score\" : 91\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/scores/16085001/",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"scores",
+						"16085001",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createScore",
+			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"roll_no\" : \"16085005\",\n    \"name\" : \"Student Five\",\n    \"maths_score\" : 80,\n    \"physics_score\" : 93,\n    \"chemistry_score\" : 74\n}",
+					"raw": "{\n    \"roll_no\" : \"16085002\",\n    \"name\" : \"Second Student\",\n    \"maths_score\" : 99,\n    \"physics_score\" : 88,\n    \"chemistry_score\" : 91\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -77,14 +107,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{baseurl}}/api/scores/16085002/",
+					"raw": "{{baseurl}}/api/scores/16085003/",
 					"host": [
 						"{{baseurl}}"
 					],
 					"path": [
 						"api",
 						"scores",
-						"16085002",
+						"16085003",
 						""
 					]
 				}
