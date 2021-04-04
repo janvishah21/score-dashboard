@@ -84,11 +84,8 @@ WSGI_APPLICATION = 'score_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heroku_a89fd09dcf98901',
-        'USER': 'b1816c42f2e7b4',
-        'PASSWORD': '7e415b82',
-        'HOST': 'us-cdbr-east-03.cleardb.com'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -130,4 +127,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'

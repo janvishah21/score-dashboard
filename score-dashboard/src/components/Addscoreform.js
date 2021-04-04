@@ -15,12 +15,15 @@ import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { addScore } from '../api/api';
 import EditIcon from '@material-ui/icons/Edit';
+import { useDispatch, useSelector } from 'react-redux';
+import { createScore, updateScore } from '../actions/scoreActions';
 
-function Addscoreform({ openPopup, setOpenPopup, isEditing, editScore, scoreForm }) {
+function Addscoreform({ openPopup, setOpenPopup, isEditing, scoreForm }) {
 
     const classes = addScoreFormStyles();
-    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
-    const [isLoading, setIsLoading] = useState(false);
+    const isLoading = useSelector(state => state.scores.isLoading);
+    const notify = useSelector(state => state.scores.notify);
+    const dispatch = useDispatch();
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
@@ -64,36 +67,15 @@ function Addscoreform({ openPopup, setOpenPopup, isEditing, editScore, scoreForm
             });
     }, [scoreForm]);
 
-    const addRecord = async () => {
-        try {
-            setIsLoading(true);
-            const res = await addScore(values);
-            if(!res.name)
-                throw 'Record Already Exists !';
-            setIsLoading(false);
-            setNotify({
-                isOpen: true,
-                message: 'Submitted Successfully !',
-                type: 'success'
-            });
-            resetForm();
-        } catch(error) {
-            setIsLoading(false);
-            setNotify({
-                isOpen: true,
-                message: error.toString().includes('Exists') ? 'Record (Roll no.) Already Exists !' : 'Internal Server Error !',
-                type: 'error'
-            });
-        }
-    }
-
     const handleSubmit = e => {
         e.preventDefault()
         if (validate()){
-            if(editScore)
-                editScore(values, resetForm, setIsLoading);
-            else
-                addRecord();
+            if(isEditing)
+                dispatch(updateScore(values));
+            else {
+                dispatch(createScore(values));
+                resetForm();
+            }
         }
     }
 
@@ -193,10 +175,7 @@ function Addscoreform({ openPopup, setOpenPopup, isEditing, editScore, scoreForm
                     </Grid>
                 </Form>
             </Paper>
-            <Notification
-                notify={notify}
-                setNotify={setNotify}
-            />
+            <Notification />
             <Popup
                 title="Grade System"
                 openPopup={openPopup}

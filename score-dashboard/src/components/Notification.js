@@ -1,19 +1,22 @@
 import { Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
+import { useDispatch, useSelector } from 'react-redux';
 import { notificationStyles } from '../styles';
+import { TURN_OFF_NOTIFY } from '../actions/types';
 
-function Notification({ notify, setNotify }) {
+function Notification() {
 
     const classes = notificationStyles();
+    const notify = useSelector(state => state.scores.notify);
+    const dispatch = useDispatch();
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
-        setNotify({
-            ...notify,
-            isOpen: false
-        })
+        dispatch({
+            type: TURN_OFF_NOTIFY
+        });
     }
 
     return (

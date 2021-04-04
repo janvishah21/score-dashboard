@@ -6,7 +6,7 @@ import Pageheader from './Pageheader';
 import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import Controls from './controls/Controls';
 import SearchIcon from '@material-ui/icons/Search';
-import { fetchScores, deleteScore } from '../api/api';
+import { fetchScores, deleteScore, editScore } from '../api/api';
 import { getGrade } from '../util';
 import GradeSystem from './Gradesystem';
 import Popup from './Popup';
@@ -18,7 +18,8 @@ import Notification from './Notification';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Addscoreform from './Addscoreform';
-import { editScore } from '../api/api';
+import { fetchAll, removeScore } from '../actions/scoreActions';
+import { useSelector, useDispatch } from 'react-redux';
 
 const headCells = [
     { id: 'roll_no', label: 'Roll No.' },
@@ -35,42 +36,19 @@ const headCells = [
 function Leaderboard({ openPopup, setOpenPopup }) {
 
     const classes = leaderboardStyles();
-    const [scores, setScores] = useState([]);
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } });
-    const [isLoading, setIsLoading] = useState(false);
-    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
     const [openFormPopup, setOpenFormPopup] = useState(false);
     const [scoreToEdit, setScoreToEdit] = useState(null);
 
+    const scores = useSelector(state => state.scores.scores);
+    const isLoading = useSelector(state => state.scores.isLoading);
+    const notify = useSelector(state => state.scores.notify);
+    const dispatch = useDispatch();
+
     useEffect( async () => {
-        getScores();
+        if(scores.length === 0)
+            dispatch(fetchAll());
     }, []);
-
-    const getScores = async () => {
-        try {
-            setIsLoading(true);
-            const scores = await fetchScores();
-            setScores(responseUpdate(scores));
-            setIsLoading(false);
-        } catch(error) {
-            setIsLoading(false);
-            setNotify({
-                isOpen: true,
-                message: 'Internal Server Error !',
-                type: 'error'
-            });
-        }
-    }
-
-    const responseUpdate = (scores) => {
-        scores.map((score) => {
-            score.total_score = score.maths_score + score.physics_score + score.chemistry_score;
-            score.percentage = Math.round(( score.total_score) / 3 * 100) / 100;
-            score.grade = getGrade(score.percentage);
-            return score;
-        });
-        return scores;
-    } 
 
     const {
         TblContainer,
@@ -95,52 +73,6 @@ function Leaderboard({ openPopup, setOpenPopup }) {
 
         setScoreToEdit(score);
         setOpenFormPopup(true);
-
-    }
-
-    const editRecord = async (values, resetForm, setIsLoading) => {
-        try {
-            setIsLoading(true);
-            const res = await editScore(values);
-            setIsLoading(false);
-            setNotify({
-                isOpen: true,
-                message: 'Submitted Successfully !',
-                type: 'success'
-            });
-            resetForm();
-            setScoreToEdit(null);
-            setOpenFormPopup(false);
-            getScores();
-        } catch(error) {
-            setIsLoading(false);
-            setNotify({
-                isOpen: true,
-                message: 'Internal Server Error !',
-                type: 'error'
-            });
-        }
-    }
-
-    const deleteRecord = async (roll_no) => {
-        
-        try {
-            const res = await deleteScore(roll_no);
-            if(!res.ok)
-                throw new Error('Operation Unsuccessful !');
-            setNotify({
-                isOpen: true,
-                message: 'Deleted Successfully !',
-                type: 'success'
-            });
-            getScores();
-        } catch(error) {
-            setNotify({
-                isOpen: true,
-                message: 'Internal Server Error !',
-                type: 'error'
-            });
-        }
 
     }
 
@@ -206,7 +138,7 @@ function Leaderboard({ openPopup, setOpenPopup }) {
                                                 </IconButton>
                                             </Tooltip>
                                             <Tooltip title="Delete Record">
-                                                <IconButton onClick={() => {deleteRecord(item.roll_no)}}>
+                                                <IconButton onClick={() => {dispatch(removeScore(item.roll_no))}}>
                                                     <DeleteIcon color='secondary'/>
                                                 </IconButton>
                                             </Tooltip>
@@ -223,10 +155,7 @@ function Leaderboard({ openPopup, setOpenPopup }) {
                 </TblContainer>
                 <TblPagination />
             </Paper>
-            <Notification
-                notify={notify}
-                setNotify={setNotify}
-            />
+            <Notification />
             <Popup
                 title="Grade System"
                 openPopup={openPopup}
@@ -238,8 +167,7 @@ function Leaderboard({ openPopup, setOpenPopup }) {
                 openPopup={openFormPopup}
                 setOpenPopup={setOpenFormPopup}
             >
-                <Addscoreform 
-                    editScore={editRecord}
+                <Addscoreform
                     isEditing={true}
                     scoreForm={scoreToEdit}
                  />

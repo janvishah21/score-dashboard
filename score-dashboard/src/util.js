@@ -20,3 +20,15 @@ export const getGrade = (marks) => {
             return i.grade;
     }
 }
+
+export const updateScores = (scores) => {
+    scores.map(score => getUpdatedScore(score));
+    return scores;
+}
+
+export const getUpdatedScore = (score) => {
+    score.total_score = score.maths_score + score.physics_score + score.chemistry_score;
+    score.percentage = Math.round(( score.total_score) / 3 * 100) / 100;
+    score.grade = getGrade(score.percentage);
+    return score;
+}
