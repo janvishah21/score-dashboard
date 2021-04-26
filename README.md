@@ -36,24 +36,3 @@ An application consists of
 * Page Not Found Page for invalid url.
 * Progress spinner.
 
-## Screenshots :
-
-#### Home Page
-
-![Home Page](img/Homepage.png)
-
-#### Add Score Form
-
-![Add Score Form](img/Addscoreform.png)
-
-#### Leaderboard Page
-
-![Leaderboard Page](img/Leaderboard.png)
-
-#### Edit Score Form
-
-![Add Score Form](img/Editscoreform.png)
-
-#### Django Rest Framework UI
-
-![Django Rest Framwork UI](img/DjangoApiUI.png)
